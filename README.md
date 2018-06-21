@@ -60,3 +60,7 @@ If you'd like to help us out, the [Pull Request]() tab is a great place to start
 ## Authors
 
 * **Dulguun Batmunkh** - *Initial work* <dulguun@glosfer.com>
+
+## License
+
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details
