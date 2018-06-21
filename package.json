@@ -1,0 +1,45 @@
+{
+  "name": "@glosfer/hw-app-hycon",
+  "version": "0.0.5",
+  "description": "Ledger Hardware Wallet Node JS API for Hycon.",
+  "keywords": [
+    "Ledger",
+    "LedgerWallet",
+    "Hycon",
+    "hyc",
+    "NanoS",
+    "Blue",
+    "Hardware Wallet"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Team-Hycon/hw-app-hycon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Team-Hycon/hw-app-hycon/issues"
+  },
+  "homepage": "https://github.com/Team-Hycon/hw-app-hycon",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/Hycon.js",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@ledgerhq/hw-transport": "^4.13.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "flow-bin": "^0.63.1",
+    "flow-copy-source": "^1.2.2",
+    "flow-typed": "^2.2.3"
+  },
+  "scripts": {
+    "flow": "flow",
+    "clean": "rm -rf lib/ node_modules/ flow-typed/",
+    "build": "babel --source-maps -d lib src && flow-copy-source -v src lib"
+  }
+}
