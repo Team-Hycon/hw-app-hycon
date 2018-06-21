@@ -48,14 +48,15 @@ export default class Hycon {
 	 * @option boolDisplay optionally enable or not the display
 	 * @return an object with a publicKey, address
 	 * @example
-	 * hycon.getAddress("44'/1397'/0'/0'/0").then(result => result.address)
+	 * hycon.getAddress("44'/1397'/0'/0'/0").then(result => result.stringAddress)
 	 */
 	getAddress(
 		path: string,
 		boolDisplay?: boolean
 	): Promise<{
 		publicKey: string,
-		address: string
+		hexAddress: string,
+		stringAddress: string
 	}> {
 		let paths = splitPath(path);
 		let buffer = new Buffer(1 + paths.length * 4);
@@ -74,18 +75,27 @@ export default class Hycon {
 			.then(response => {
 				let result = {};
 				let publicKeyLength = response[0];
-				let addressLength = response[1 + publicKeyLength];
+				let hexAddressLength = response[1 + publicKeyLength];
+				let stringAddressLength = response[1 + publicKeyLength + 1 + hexAddressLength];
+				console.log(stringAddressLength)
 				result.publicKey = response
 					.slice(1, 1 + publicKeyLength)
 					.toString("hex");
-				result.address =
+				result.hexAddress =
 					"0x" +
 					response
 						.slice(
 							1 + publicKeyLength + 1,
-							1 + publicKeyLength + 1 + addressLength
+							1 + publicKeyLength + 1 + hexAddressLength
 						)
 						.toString("hex");
+				result.stringAddress =
+					response
+						.slice(
+							1 + publicKeyLength + 1 + hexAddressLength + 1,
+							1 + publicKeyLength + 1 + hexAddressLength + 1 + stringAddressLength
+						)
+						.toString("ascii");
 				return result;
 			});
 	}

@@ -11,7 +11,7 @@ const getHyconAddress = async () => {
   const transport = await Transport.create();
   const hycon = new Hycon(transport);
   const result = await hycon.getAddress("44'/1397'/0'/0");
-  return result.address;
+  return result.stringAddress;
 };
 getHyconAddress().then(a => console.log(a));
 ```
