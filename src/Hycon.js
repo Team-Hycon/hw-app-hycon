@@ -101,7 +101,7 @@ export default class Hycon {
 	}
 
 	/**
-	 * You can sign a transaction and retrieve v, r, s given the raw transaction and the BIP 32 path of the account to sign
+	 * You can sign a transaction and retrieve signature and recovery given the raw transaction and the BIP 32 path of the account to sign
 	 * @param path a path in BIP32 format
 	 * @param tx encoded (by protobuf) raw tx
 	 * @example
@@ -111,7 +111,8 @@ export default class Hycon {
 		path: string,
 		rawTxHex: string
 	): Promise<{
-		signature: string
+		signature: string,
+		recovery: number
 	}> {
 		let paths = splitPath(path);
 		let rawTx = new Buffer(rawTxHex, "hex");
@@ -135,6 +136,7 @@ export default class Hycon {
 				result.signature = response
 					.slice(1, 1 + 64)
 					.toString("hex");
+				result.recovery = response[0];
 				return result;
 			});
 	}
