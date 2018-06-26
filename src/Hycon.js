@@ -38,7 +38,7 @@ export default class Hycon {
 				"signTransaction",
 				"getAppConfig"
 			],
-			"w0w"
+			"mgl"
 		);
 	}
 
@@ -77,7 +77,6 @@ export default class Hycon {
 				let publicKeyLength = response[0];
 				let hexAddressLength = response[1 + publicKeyLength];
 				let stringAddressLength = response[1 + publicKeyLength + 1 + hexAddressLength];
-				console.log(stringAddressLength)
 				result.publicKey = response
 					.slice(1, 1 + publicKeyLength)
 					.toString("hex");
@@ -116,13 +115,12 @@ export default class Hycon {
 	}> {
 		let paths = splitPath(path);
 		let rawTx = new Buffer(rawTxHex, "hex");
-		let buffer = new Buffer(1 + paths.length * 4 + 1 + rawTx.length * 4);
+		let buffer = new Buffer(1 + paths.length * 4 + rawTx.length);
 		buffer[0] = paths.length;
 		paths.forEach((element, index) => {
 			buffer.writeUInt32BE(element, 1 + 4 * index);
 		});
-		buffer[paths.length * 4 + 1] = rawTx.length;
-		rawTx.copy(buffer, 1 + 4 * paths.length + 1, 0, rawTx.length);
+		rawTx.copy(buffer, 1 + 4 * paths.length, 0, rawTx.length);
 		return this.transport
 			.send(
 				0xe0,
