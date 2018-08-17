@@ -1,4 +1,7 @@
 # Hardware app Hycon
+
+[![npm](https://img.shields.io/npm/v/@glosfer/hw-app-hycon.svg)](https://www.npmjs.com/package/@glosfer/hw-app-hycon)
+
 Ledger Hardware Wallet Node JS API for Hycon.
 
 ## Examples
